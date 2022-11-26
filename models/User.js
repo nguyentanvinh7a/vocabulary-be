@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-//const crypto = require('crypto');
-//const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -23,12 +21,17 @@ const UserSchema = new mongoose.Schema({
         match: [/\S+@\S+\.\S+/, 'is invalid'],
         index: true
     },
-    image: {
+    imageLink: {
         type: String
     },
     password: {
         type: String
-    }
+    },
+    userRoleId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserRole',
+        required: true
+    },
 }, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);

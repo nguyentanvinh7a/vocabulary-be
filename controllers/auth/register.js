@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
                             from: 'nguyentanvinh2911@gmail.com',
                             to: email,
                             subject: 'Account Created Successfully!!',
-                            html: '<h3>Your account successfully created on Messenger!!</h3> <br><br><strong> Email:</strong> ' + req.body.email + '<br><strong> Password:</strong> ' + req.body.password
+                            html: '<h3>Your account successfully created on Vocabulary!!</h3> <br><br><strong> Email:</strong> ' + req.body.email + '<br><strong> Password:</strong> ' + req.body.password
                         };
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
