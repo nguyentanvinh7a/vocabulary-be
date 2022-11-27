@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
-    User.findOne({ username: req.body.username }, function (err, postUser) {
+    User.findOne({ username: req.body.username }, async function (err, postUser) {
         if (err) {
-            res.status(401).send({ err });
+            return res.status(401).send({ err });
         } else {
             if (postUser) {
                 if (bcrypt.compareSync(req.body.password, postUser.password)) {
@@ -15,18 +15,16 @@ exports.login = async (req, res) => {
                         username: postUser.username,
                         name: postUser.name,
                         email: postUser.email,
-                        image: postUser.image,
+                        imageLink: postUser.imageLink,
+                        roles: postUser.roles
                     };
-                    let id = postUser._id;
                     let token = jwt.sign(payload, 'secretkey');
-                    let name = postUser.name;
-                    let username = postUser.username;
-                    res.status(200).send({ token, id, name, username });
+                    return res.status(200).send({ token, ...postUser._doc });
                 } else {
-                    res.status(401).send({ Message: 'Invalid Password' });
+                    return res.status(401).send({ Message: 'Invalid Password' });
                 }
             } else {
-                res.status(401).send({ Message: 'Invalid Username' });
+                return res.status(401).send({ Message: 'Invalid Username' });
             }
         }
     });

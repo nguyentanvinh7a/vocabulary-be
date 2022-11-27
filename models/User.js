@@ -27,10 +27,9 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    userRoleId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserRole',
-        required: true
+    roles: {
+        type: Array,
+        default: ['user']
     },
 }, { timestamps: true });
 

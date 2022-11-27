@@ -1,5 +1,6 @@
 module.exports = {
     ...require('./register'),
     ...require('./login'),
-    ...require('./middleware')
+    ...require('./verifyToken'),
+    ...require('./verifyRoles')
 };
