@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const listMeaningSchema = new mongoose.Schema({
-    listId: {
+const vocabularySchema = new mongoose.Schema({
+    list: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'List',
         required: true
@@ -22,6 +22,6 @@ const listMeaningSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-const ListMeaning = mongoose.model('ListMeaning', listMeaningSchema);
+const Vocabulary = mongoose.model('Vocabulary', vocabularySchema);
 
-module.exports = ListMeaning;
+module.exports = Vocabulary;

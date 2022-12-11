@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const level = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 const meaningSchema = new mongoose.Schema({
-    wordId: {
+    word: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Word',
         required: true
@@ -13,8 +13,8 @@ const meaningSchema = new mongoose.Schema({
         required: true
     },
     example: {
-        type: String,
-        required: true
+        type: [String],
+        required: false
     },
     level: {
         type: String,
@@ -22,8 +22,7 @@ const meaningSchema = new mongoose.Schema({
         required: false
     },
     pronunciation: {
-        type: String,
-        required: true
+        type: String
     },
     imageLink: {
         type: String,

@@ -9,6 +9,7 @@ exports.isAuth = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, 'secretkey');
+        req.userId = decoded.id;
         req.user = decoded.username;
         req.roles = decoded.roles;
         next();

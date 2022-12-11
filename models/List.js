@@ -6,7 +6,7 @@ const listSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    name: {
+    listName: {
         type: String,
         required: true
     },

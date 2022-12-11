@@ -5,12 +5,8 @@ const type = ['adj', 'adv', 'conj', 'det', 'n', 'prep', 'pron', 'v'];
 const wordSchema = new mongoose.Schema({
     word: {
         type: String,
-        required: true
-    },
-    meaning: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Meaning',
-        required: true
+        required: true,
+        unique: true
     },
     type: {
         type: [String],
