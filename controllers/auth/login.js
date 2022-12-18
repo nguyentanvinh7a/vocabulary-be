@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
                         roles: postUser.roles
                     };
                     let token = jwt.sign(payload, 'secretkey');
-                    return res.status(200).send({ token, ...postUser._doc });
+                    return res.status(200).send({ token, user: { ...postUser._doc } });
                 } else {
                     return res.status(401).send({ Message: 'Invalid Password' });
                 }
