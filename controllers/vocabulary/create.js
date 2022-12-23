@@ -9,6 +9,15 @@ exports.createVocabulary = async (req, res) => {
 
         const list = await List.findById(listId);
         const meaning = await Meaning.findById(meaningId);
+        const vocabularies = await Vocabulary.find({ list: listId });
+        const existedVocabulary = vocabularies.find(vocabulary => vocabulary.meaning.toString() === meaningId);
+
+        if (existedVocabulary) {
+            return res.status(400).json({
+                success: false,
+                message: 'This meaning is existed in list vocabularies'
+            });
+        }
 
         if (!list) {
             return res.status(404).json({ msg: 'List not found' });
