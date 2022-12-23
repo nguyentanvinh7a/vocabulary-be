@@ -1,4 +1,5 @@
 const express = require('express');
+const PORT = process.env.PORT || 3001;
 const app = express();
 const http = require("http");
 const cors = require('cors');
@@ -19,6 +20,6 @@ mongoose.connect(db.url, function () {
 
 app.use('/api', apiRouter);
 
-server.listen(3001, () => {
+server.listen(PORT, () => {
     console.log("SERVER RUNNING");
 });
