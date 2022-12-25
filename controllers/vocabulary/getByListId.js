@@ -12,6 +12,7 @@ exports.getByListId = async (req, res) => {
         }
 
         const vocabularies = await Vocabulary.find({ list })
+            .sort({ createdAt: -1 })
             .populate({
                 path: 'meaning',
                 populate: {

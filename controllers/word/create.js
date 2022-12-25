@@ -3,7 +3,7 @@ const Word = require('../../models/Word');
 exports.createWord = async (req, res) => {
 
     try {
-        const { word, type, relatedWords: relatedIdWords } = req.body;
+        const { word, type, relatedWords: relatedIdWords, meaning, example, level, pronunciation, imageLink } = req.body;
 
         if (!word || !type) {
             return res.status(400).json({ msg: 'Please enter all fields' });
@@ -36,7 +36,12 @@ exports.createWord = async (req, res) => {
         const newWord = new Word({
             word,
             type,
-            relatedWords
+            relatedWords,
+            meaning,
+            example,
+            level,
+            pronunciation,
+            imageLink
         });
 
         await newWord.save();

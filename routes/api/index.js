@@ -11,7 +11,7 @@ router.use('/auth', auth);
 router.use('/message', message);
 router.use('/word', word);
 router.use('/list', list);
-router.use('/meaning', meaning);
+//router.use('/meaning', meaning);
 router.use('/vocabulary', vocabulary);
 
 module.exports = router;
