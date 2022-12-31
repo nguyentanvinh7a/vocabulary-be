@@ -3,20 +3,10 @@ const Word = require('../../models/Word');
 exports.createWord = async (req, res) => {
 
     try {
-        const { word, type, relatedWords: relatedIdWords, meaning, example, level, pronunciation, imageLink } = req.body;
+        const { word, type, meaning, example, level, pronunciation, imageLink, relatedWords: relatedIdWords } = req.body;
 
         if (!word || !type) {
             return res.status(400).json({ msg: 'Please enter all fields' });
-        }
-
-        if (word.length > 20) {
-            return res.status(400).json({ msg: 'Word must be less than 20 characters' });
-        }
-
-        const existedWord = await Word.findOne({ word });
-
-        if (existedWord) {
-            return res.status(400).json({ msg: 'Word is existed' });
         }
 
         const relatedWords = [];
