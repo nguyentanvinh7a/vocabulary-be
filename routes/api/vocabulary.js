@@ -7,7 +7,7 @@ const verifyRoles = require('../../controllers/auth').verifyRoles;
 
 const vocabularyController = require("../../controllers/vocabulary");
 
-router.post('/create', isAuth, verifyRoles(ROLE_LIST.USER), vocabularyController.createVocabulary);
-router.get('/getByListId/:listId', isAuth, verifyRoles(ROLE_LIST.USER), vocabularyController.getByListId);
+router.post('/create', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.createVocabulary);
+router.get('/getByListId/:listId', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.getByListId);
 
 module.exports = router;

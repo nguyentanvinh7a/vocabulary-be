@@ -14,10 +14,7 @@ exports.getByListId = async (req, res) => {
         const vocabularies = await Vocabulary.find({ list })
             .sort({ createdAt: -1 })
             .populate({
-                path: 'meaning',
-                populate: {
-                    path: 'word'
-                }
+                path: 'word'
             })
             .limit(limit * 1)
             .skip((page - 1) * limit)

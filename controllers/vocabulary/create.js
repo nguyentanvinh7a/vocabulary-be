@@ -5,19 +5,19 @@ const Vocabulary = require('../../models/Vocabulary');
 exports.createVocabulary = async (req, res) => {
 
     try {
-        const { list: listId, word: wordId, note, imageLink } = req.body;
+        const { listId, wordId, note, imageLink } = req.body;
 
         const list = await List.findById(listId);
         const word = await Word.findById(wordId);
         const vocabularies = await Vocabulary.find({ list: listId });
-        //const existedVocabulary = vocabularies.find(vocabulary => vocabulary.meaning.toString() === meaningId);
+        const existedVocabulary = vocabularies.find(vocabulary => vocabulary.word.toString() === wordId);
 
-        //if (existedVocabulary) {
-        //    return res.status(400).json({
-        //        success: false,
-        //        message: 'This word is existed in list vocabularies'
-        //    });
-        //}
+        if (existedVocabulary) {
+            return res.status(400).json({
+                success: false,
+                message: 'This word is already in the list'
+            });
+        }
 
         if (!list) {
             return res.status(404).json({ msg: 'List not found' });

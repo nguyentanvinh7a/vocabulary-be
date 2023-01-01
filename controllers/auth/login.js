@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
     User.findOne({ username: req.body.username }, async function (err, postUser) {
-        console.log(postUser);
         if (err) {
             return res.status(401).send({ err });
         } else {

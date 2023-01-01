@@ -7,7 +7,7 @@ const verifyRoles = require('../../controllers/auth').verifyRoles;
 
 const listController = require("../../controllers/list");
 
-router.post('/create', isAuth, verifyRoles(ROLE_LIST.USER), listController.createList);
-router.get('/getByUserId', isAuth, verifyRoles(ROLE_LIST.USER), listController.getByUserId);
+router.post('/create', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), listController.createList);
+router.get('/getByUserId', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), listController.getByUserId);
 
 module.exports = router;

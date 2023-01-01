@@ -6,9 +6,9 @@ const vocabularySchema = new mongoose.Schema({
         ref: 'List',
         required: true
     },
-    meaning: {
+    word: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Meaning',
+        ref: 'Word',
         required: true
     },
     note: {
