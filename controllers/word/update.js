@@ -10,6 +10,11 @@ exports.updateWord = async (req, res) => {
         }
 
         const oldWord = await Word.findById(_id);
+
+        if (!oldWord) {
+            return res.status(400).json({ msg: 'Word does not exist' });
+        }
+
         if (relatedIdWords) {
             const updateRelatedWords = oldWord.relatedWords.map(relatedWord => relatedWord.toString());
             const deletedIdRelatedWords = updateRelatedWords.filter(relatedWord => !relatedIdWords.includes(relatedWord));
@@ -61,7 +66,6 @@ exports.updateWord = async (req, res) => {
         if (pronunciation) newWord.pronunciation = pronunciation;
         if (imageLink) newWord.imageLink = imageLink;
         if (relatedIdWords) newWord.relatedWords = relatedIdWords;
-
 
         const result = await Word.findByIdAndUpdate(_id, newWord, { new: true }).populate('relatedWords');
 

@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
                     email: req.body.email,
                     imageLink: req.body.imageLink,
                     password: hashedPassword,
-                    roles: req.body.roles
+                    roles: req.body.roles || ['User']
                 });
                 handleSaveUser(req, res, user);
             } else {
@@ -65,7 +65,7 @@ const handleSaveUser = async (req, res, user) => {
                 roles: newUser.roles
             };
             let token = jwt.sign(payload, 'secretkey');
-            return res.status(200).send({ ...newUser._doc, token });
+            return res.status(200).send({ token, user: { ...newUser._doc } });
         }
     })
 }

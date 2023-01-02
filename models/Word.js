@@ -9,7 +9,7 @@ const wordSchema = new mongoose.Schema({
         required: true
     },
     type: {
-        type: [String],
+        type: String,
         enum: type,
         required: true
     },
