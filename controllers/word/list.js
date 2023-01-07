@@ -5,7 +5,7 @@ exports.getWords = async (req, res) => {
         const { page = 1, q: search } = req.query;
         let { limit } = req.query;
         if (search === undefined) {
-            limit = 100;
+            limit = limit ? limit : 10;
         } else if (search === "") {
             limit = 10;
         } else {

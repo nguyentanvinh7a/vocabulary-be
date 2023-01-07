@@ -10,5 +10,6 @@ const wordController = require("../../controllers/word");
 router.post('/', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN), wordController.createWord);
 router.put('/', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN), wordController.updateWord);
 router.get('/', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN, ROLE_LIST.USER), wordController.getWords);
+router.get('/length', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN, ROLE_LIST.USER), wordController.length);
 
 module.exports = router;
