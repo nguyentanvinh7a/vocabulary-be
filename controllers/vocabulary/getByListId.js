@@ -4,7 +4,12 @@ const Vocabulary = require('../../models/Vocabulary');
 exports.getByListId = async (req, res) => {
     try {
         const listId = req.params.listId;
-        const { page = 1, limit = 100 } = req.query;
+        const { page = 1, limit = 10 } = req.query;
+
+        if (!listId) {
+            return res.status(400).json({ msg: 'List ID is required' });
+        }
+
         const list = await List.findById(listId);
 
         if (!list) {
