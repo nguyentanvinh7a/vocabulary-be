@@ -16,7 +16,7 @@ exports.getWords = async (req, res) => {
             $or: [
                 { word: { $regex: search || '', $options: 'i' } },
             ]
-        }).populate('relatedWords').limit(limit * 1).skip((page - 1) * limit).exec();
+        }).sort({ updatedAt: -1 }).populate('relatedWords').limit(limit * 1).skip((page - 1) * limit).exec();
         return res.json(words);
     } catch (err) {
         console.log(err.message);
