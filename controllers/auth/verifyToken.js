@@ -1,6 +1,12 @@
-const jwt = require('jsonwebtoken');
+const CognitoJwtVerifier = require("aws-jwt-verify").CognitoJwtVerifier;
 
-exports.isAuth = (req, res, next) => {
+const cognitoJwtVerifier = new CognitoJwtVerifier({
+    userPoolId: "ap-southeast-1_P5gSpN7to",
+    tokenUse: "id",
+    clientId: "4n0aq1f9rmn0bvrum0ts33igaj",
+});
+
+exports.isAuth = async (req, res, next) => {
     const token = req.header('x-auth-token');
 
     if (!token) {
@@ -8,12 +14,12 @@ exports.isAuth = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, 'secretkey');
-        req.userId = decoded.id;
-        req.user = decoded.username;
-        req.roles = decoded.roles;
+        const decoded = await cognitoJwtVerifier.verify(token);
+        req.userId = decoded.sub;
+        req.user = decoded['cognito:username'];
+        req.roles = decoded['cognito:groups']?.includes('admin') ? ['admin', 'user'] : ['user'];
         next();
     } catch (err) {
-        return res.status(401).json({ msg: 'Token is not valid' });
+        return res.status(401).json({ msg: err.message });
     }
 };
