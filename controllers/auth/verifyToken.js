@@ -3,9 +3,9 @@ const CognitoJwtVerifier = require("aws-jwt-verify").CognitoJwtVerifier;
 const ROLE_LIST = require('../../config/roles_list');
 
 const cognitoJwtVerifier = new CognitoJwtVerifier({
-    userPoolId: "ap-southeast-1_P5gSpN7to",
+    userPoolId: "ap-southeast-1_y0cDaGZFP",
     tokenUse: "access",
-    clientId: "4n0aq1f9rmn0bvrum0ts33igaj",
+    clientId: "3905akl8l4aa8tafg0sp3aq457",
 });
 
 exports.isAuth = async (req, res, next) => {
@@ -19,9 +19,11 @@ exports.isAuth = async (req, res, next) => {
         const decoded = await cognitoJwtVerifier.verify(token);
         req.userId = decoded.sub;
         req.user = decoded.username;
+        console.log("decoded", decoded);
         req.roles = decoded['cognito:groups']?.includes(ROLE_LIST.ADMIN) ? [ROLE_LIST.ADMIN] : [ROLE_LIST.USER];
         next();
     } catch (err) {
+        console.error("err", err);
         return res.status(401).json({ msg: err.message });
     }
 };
