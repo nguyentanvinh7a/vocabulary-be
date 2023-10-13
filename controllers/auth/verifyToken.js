@@ -19,7 +19,6 @@ exports.isAuth = async (req, res, next) => {
         const decoded = await cognitoJwtVerifier.verify(token);
         req.userId = decoded.sub;
         req.user = decoded.username;
-        console.log("decoded", decoded);
         req.roles = decoded['cognito:groups']?.includes(ROLE_LIST.ADMIN) ? [ROLE_LIST.ADMIN] : [ROLE_LIST.USER];
         next();
     } catch (err) {
