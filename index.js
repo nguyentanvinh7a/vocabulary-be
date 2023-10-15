@@ -11,8 +11,13 @@ var bodyParser = require('body-parser');
 
 const server = http.createServer(app);
 
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+}
+
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 mongoose.connect(db.url, function () {
     console.log('Mongodb connected!!');
