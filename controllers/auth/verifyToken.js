@@ -1,23 +1,4 @@
-var CognitoJwtVerifier = require("aws-jwt-verify").CognitoJwtVerifier;
-var SimpleJwksCache = require("aws-jwt-verify/jwk").SimpleJwksCache;
-var SimpleJsonFetcher = require("aws-jwt-verify/https").SimpleJsonFetcher;
-
-var verifier = CognitoJwtVerifier.create(
-  {
-    userPoolId: "ap-southeast-1_y0cDaGZFP",
-    tokenUse: "access",
-    clientId: "3905akl8l4aa8tafg0sp3aq457",
-  },
-  {
-    jwksCache: new SimpleJwksCache({
-      fetcher: new SimpleJsonFetcher({
-        defaultRequestOptions: {
-          responseTimeout: 3000,
-        },
-      }),
-    }),
-  }
-);
+const jwt = require('jsonwebtoken');
 
 const ROLE_LIST = require('../../config/roles_list');
 
@@ -30,7 +11,7 @@ exports.isAuth = async (req, res, next) => {
     }
 
     try {
-        const decoded = await verifier.verify(token);
+        const decoded = jwt.decode(token, { complete: true }).payload;
         req.userId = decoded.sub;
         req.user = decoded.username;
         req.roles = decoded['cognito:groups']?.includes(ROLE_LIST.ADMIN) ? [ROLE_LIST.ADMIN] : [ROLE_LIST.USER];
