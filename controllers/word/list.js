@@ -2,6 +2,7 @@ const Word = require('../../models/Word');
 
 exports.getWords = async (req, res) => {
     try {
+        console.log("getWords")
         const { page = 1, q: search } = req.query;
         let { limit } = req.query;
         if (search === undefined) {

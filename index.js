@@ -19,6 +19,8 @@ const corsOptions = {
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
+mongoose.set("strictQuery", false);
+
 mongoose.connect(db.url, function () {
     console.log('Mongodb connected!!');
 });

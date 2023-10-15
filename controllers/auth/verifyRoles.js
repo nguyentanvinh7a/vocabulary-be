@@ -5,6 +5,7 @@ exports.verifyRoles = (...allowedRoles) => {
         }
         const rolesArray = [...allowedRoles];
         const isAllowed = rolesArray.some((role) => req.roles.includes(role));
+        console.log('isAllowed', isAllowed);
         if (isAllowed) {
             next();
         } else {
