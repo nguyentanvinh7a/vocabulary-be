@@ -1,9 +1,11 @@
 const Word = require('../../models/Word');
+const List = require('../../models/List');
+const Vocabulary = require('../../models/Vocabulary');
 
 exports.createWord = async (req, res) => {
 
     try {
-        const { word, type, meaning, example, level, pronunciation, imageLink, relatedWords: relatedIdWords } = req.body;
+        const { word, type, meaning, example, level, pronunciation, imageLink, relatedWords: relatedIdWords, addToVocabulary, listId } = req.body;
 
         if (!word || !type) {
             return res.status(400).json({ msg: 'Please enter all fields' });
@@ -42,6 +44,24 @@ exports.createWord = async (req, res) => {
                 if (!relatedWord.relatedWords.includes(newWord._id)) {
                     relatedWord.relatedWords.push(newWord._id);
                     await relatedWord.save();
+                }
+            }
+        }
+
+        if (addToVocabulary && listId) {
+            const list = await List.findById(listId);
+            if (!list) {
+                return res.status(400).json({ msg: 'List does not exist' });
+            } else {
+                const vocabulary = await Vocabulary.findOne({ list: listId, word: newWord._id });
+                if (!vocabulary) {
+                    const newVocabulary = new Vocabulary({
+                        list: listId,
+                        word: newWord._id,
+                        note: '',
+                        imageLink: imageLink || ''
+                    });
+                    await newVocabulary.save();
                 }
             }
         }

@@ -1,26 +1,44 @@
 const Word = require('../../models/Word');
 
-exports.getWords = async (req, res) => {
-    try {
-        console.log("getWords")
-        const { page = 1, q: search } = req.query;
-        let { limit } = req.query;
-        if (search === undefined) {
-            limit = limit ? limit : 10;
-        } else if (search === "") {
-            limit = 10;
-        } else {
-            limit = 100;
-        }
+const getWordsWithPagination = async (query, page = 1, limit = 10) => {
+  try {
+    const words = await Word.find(query)
+      .sort({ updatedAt: -1 })
+      .populate('relatedWords')
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
 
-        const words = await Word.find({
-            $or: [
-                { word: { $regex: search || '', $options: 'i' } },
-            ]
-        }).sort({ updatedAt: -1 }).populate('relatedWords').limit(limit * 1).skip((page - 1) * limit).exec();
-        return res.json(words);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send(err.message);
+    return words;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};
+
+exports.getWords = async (req, res) => {
+  try {
+    const { q: search } = req.query;
+    let { page, limit } = req.query;
+
+    page = page || 1;
+    limit = limit || 10;
+
+    let query = {};
+
+    if (search) {
+      query = {
+        $or: [
+          { word: { $regex: search, $options: 'i' } },
+        ],
+      };
     }
+
+    const words = await getWordsWithPagination(query, page, limit);
+
+    return res.json(words);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
 };

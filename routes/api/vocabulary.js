@@ -11,5 +11,6 @@ router.post('/', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabular
 router.put('/', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.updateVocabulary);
 router.get('/getByListId/:listId', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.getByListId);
 router.get('/length/:listId', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.length);
+router.delete('/:id', isAuth, verifyRoles(ROLE_LIST.USER, ROLE_LIST.ADMIN), vocabularyController.deleteVocabulary);
 
 module.exports = router;

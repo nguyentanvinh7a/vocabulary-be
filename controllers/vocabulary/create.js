@@ -24,10 +24,6 @@ exports.createVocabulary = async (req, res) => {
         } else if (!word) {
             return res.status(404).json({ msg: 'Word not found' });
         } else {
-            if (!note) {
-                return res.status(400).json({ msg: 'Please enter all fields' });
-            }
-
             if (list.userId.toString() !== req.userId) {
                 return res.status(401).json({ msg: 'Not authorized' });
             }

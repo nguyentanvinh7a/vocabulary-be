@@ -12,7 +12,6 @@ exports.isAuth = async (req, res, next) => {
 
     try {
         const decoded = jwt.decode(token, { complete: true }).payload;
-        console.log("decoded", decoded);
         req.userId = decoded.sub;
         req.user = decoded.username;
         req.roles = decoded['cognito:groups']?.includes(ROLE_LIST.ADMIN) ? [ROLE_LIST.ADMIN] : [ROLE_LIST.USER];
