@@ -30,11 +30,11 @@ jobs:
         password: ${{ secrets.GIT_CPANEL_REACT_PWD }}
         protocol: ${{ secrets.GIT_CPANEL_REACT_PROTOCOL }}
 
-    - name: 🚀 Stop Previous Node Server
-      run: |
-        echo "$SSH_PASSWORD" |sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "PORT=3001; PID=\$(lsof -t -i:\$PORT); if [ ! -z \"\$PID\" ]; then echo \"Stopping process using port \$PORT\"; kill -9 \$PID; sleep 5; else echo \"No process found using port \$PORT\"; fi"
-      env:
-        SSH_PASSWORD: M1!eE.vE5q8fV1
+    # - name: 🚀 Stop Previous Node Server
+    #   run: |
+    #     echo "$SSH_PASSWORD" |sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "PORT=3001; PID=\$(lsof -t -i:\$PORT); if [ ! -z \"\$PID\" ]; then echo \"Stopping process using port \$PORT\"; kill -9 \$PID; sleep 5; else echo \"No process found using port \$PORT\"; fi"
+    #   env:
+    #     SSH_PASSWORD: M1!eE.vE5q8fV1
 
     - name: 🚀 Start Node Server
       run: |
