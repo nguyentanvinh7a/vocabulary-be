@@ -29,8 +29,10 @@ jobs:
         username: ${{ secrets.GIT_CPANEL_REACT_USER }}
         password: ${{ secrets.GIT_CPANEL_REACT_PWD }}
         protocol: ${{ secrets.GIT_CPANEL_REACT_PROTOCOL }}
-        # local-dir: ./build/
 
     - name: 🚀 Start Node Server
       run: |
-        ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "cd backend.tavivocabulary.click && npm install && npm run start"
+        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "cd backend.tavivocabulary.click && npm install && npm run start"
+      env:
+        SSH_PASSWORD: M1!eE.vE5q8fV1
+      
