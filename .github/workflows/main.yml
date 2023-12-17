@@ -13,10 +13,10 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
-    - name: Use Node.js 16
+    - name: Use Node.js 14
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '14.x'
       
     - name: 🔨 Build Project
       run: |
@@ -32,7 +32,7 @@ jobs:
 
     - name: 🚀 Start Node Server
       run: |
-        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "cd backend.tavivocabulary.click && npm install && npm run start"
+        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "export PATH=\$PATH:/home/tavivoca/nodevenv/backend.tavivocabulary.click/14/bin/npm && cd backend.tavivocabulary.click && npm install && npm run start"
       env:
         SSH_PASSWORD: M1!eE.vE5q8fV1
       
