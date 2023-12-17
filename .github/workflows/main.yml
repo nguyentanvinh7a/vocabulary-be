@@ -32,7 +32,7 @@ jobs:
 
     - name: 🚀 Start Node Server
       run: |
-        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "export PATH=\$PATH:/home/tavivoca/nodevenv/backend.tavivocabulary.click/14/bin/npm && cd backend.tavivocabulary.click && npm install && npm run start"
+        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "source ~/.bashrc && cd backend.tavivocabulary.click && npm install && npm run start"
       env:
         SSH_PASSWORD: M1!eE.vE5q8fV1
       
