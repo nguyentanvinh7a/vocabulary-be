@@ -33,4 +33,4 @@ jobs:
 
     - name: 🚀 Start Node Server
       run: |
-        ssh ${{ secrets.GIT_CPANEL_REACT_USER }} -o StrictHostKeyChecking=no "cd backend.tavivocabulary.click && npm install && npm run start"
+        ssh tavivoca@tavivocabulary.click -o StrictHostKeyChecking=no "cd backend.tavivocabulary.click && npm install && npm run start"
