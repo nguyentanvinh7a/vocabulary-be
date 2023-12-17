@@ -32,6 +32,7 @@ jobs:
 
     - name: 🚀 Stop Previous Node Server
       run: |
+        set -x
         PORT=3001
         PID=$(lsof -t -i:$PORT)
         if [ ! -z "$PID" ]; then
