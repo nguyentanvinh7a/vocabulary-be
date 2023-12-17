@@ -29,25 +29,4 @@ jobs:
         username: ${{ secrets.GIT_CPANEL_REACT_USER }}
         password: ${{ secrets.GIT_CPANEL_REACT_PWD }}
         protocol: ${{ secrets.GIT_CPANEL_REACT_PROTOCOL }}
-
-    - name: 🚀 Stop Previous Node Server
-      run: |
-        PORT=3001
-        PID=$(echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "netstat -ltnp 2>/dev/null | grep \":$PORT \" | awk '{print \$7}' | cut -d '/' -f1")
-        if [ ! -z "$PID" ]; then
-          echo "Stopping process using port $PORT"
-          echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "kill -9 $PID"
-          sleep 5
-        else
-          echo "No process found using port $PORT"
-        fi
-      env:
-        SSH_PASSWORD: M1!eE.vE5q8fV1
-      
-
-    - name: 🚀 Start Node Server
-      run: |
-        echo "$SSH_PASSWORD" | sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no tavivoca@tavivocabulary.click "cd backend.tavivocabulary.click && /home/tavivoca/nodevenv/backend.tavivocabulary.click/14/bin/npm run start"
-      env:
-        SSH_PASSWORD: M1!eE.vE5q8fV1
       
