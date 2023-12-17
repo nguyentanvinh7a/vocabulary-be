@@ -37,10 +37,11 @@ jobs:
         if [ ! -z "$PID" ]; then
           echo "Stopping process using port $PORT"
           kill -9 $PID
-          sleep 2  # Chờ một khoảng thời gian ngắn để đảm bảo tiến trình đã dừng
+          sleep 2
         else
           echo "No process found using port $PORT"
         fi
+        exit 0
       shell: bash
 
     - name: 🚀 Start Node Server
