@@ -37,7 +37,9 @@ jobs:
         if [ ! -z "$PID" ]; then
           echo "Stopping process using port $PORT"
           kill -9 $PID
-          sleep 2
+          sleep 2  # Chờ một khoảng thời gian ngắn để đảm bảo tiến trình đã dừng
+        else
+          echo "No process found using port $PORT"
         fi
       shell: bash
 
