@@ -12,5 +12,6 @@ router.put('/', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN), wor
 router.get('/', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN, ROLE_LIST.USER), wordController.getWords);
 router.get('/length', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN, ROLE_LIST.USER), wordController.length);
 router.delete('/:id', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN), wordController.deleteWord);
+router.get('/check/:word', isAuth, verifyRoles(ROLE_LIST.SUPER_ADMIN, ROLE_LIST.ADMIN, ROLE_LIST.USER), wordController.checkWordExist);
 
 module.exports = router;

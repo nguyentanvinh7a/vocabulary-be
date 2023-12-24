@@ -3,5 +3,6 @@ module.exports = {
     ...require('./list'),
     ...require('./update'),
     ...require('./length'),
-    ...require('./delete')
+    ...require('./delete'),
+    ...require('./checkWordExist'),
 };
